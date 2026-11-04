@@ -298,7 +298,7 @@ function Index() {
 
       {/* Dunes band */}
       <section className="relative h-[50vh] overflow-hidden">
-        <img src={dunesImg.url} alt="UAV over desert dunes" className="absolute inset-0 h-full w-full scale-110 object-cover animate-drift" />
+        <img src={dunesImg.url} alt="UAV over desert dunes" className="absolute inset-0 h-full w-full scale-110 object-cover object-bottom animate-drift" />
       </section>
 
       <Contact />
