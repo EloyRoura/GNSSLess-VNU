@@ -172,7 +172,7 @@ function Index() {
               [`${specs.minimumAltitudeAglM}–${specs.maximumAltitudeAglM.toLocaleString("en-US")} m AGL`, "desert · mountains · urban"],
               ["Day & night", "50 m position error"],
               ["Non-visual enabled", "Resilient in clouds and fog"],
-              ["Easy deployment", "Up-to-date georeferenced map"],
+              ["Easy deployment", "Georeferenced map & flight plan req."],
             ].map(([v, l]) => (
               <div key={v}>
                 <div className="text-base font-semibold">{v}</div>
