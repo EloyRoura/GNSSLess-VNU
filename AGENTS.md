@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep numerical product specifications in a shared browser-safe module used by the page and specification tests, so displayed values and verified requirements remain consistent.
