@@ -21,7 +21,7 @@ import heroImg from "@/assets/desert_flight.jpg.asset.json";
 import dunesImg from "@/assets/dunes_flight.jpg.asset.json";
 import tiiLogo from "@/assets/tii_logo.png.asset.json";
 import unitImg from "@/assets/visual_nav_unit.png.asset.json";
-import appImg from "@/assets/mission_app.png.asset.json";
+import gcsImg from "@/assets/gcs_station.jpg";
 import { productSpecifications as specs } from "@/lib/product-specifications";
 
 const CONTACT_EMAIL = "eloy.roura@tii.ae";
@@ -264,7 +264,14 @@ function Index() {
               </ul>
             </div>
             <div className="rounded-xl border-8 border-ink-foreground/10 bg-ink-foreground/5 shadow-elegant">
-              <img src={appImg.url} alt="Map upload and mission app" className="w-full rounded" />
+              <img
+                src={gcsImg}
+                alt="Rugged ground control station showing map upload, mask generation and flight plan"
+                className="w-full rounded"
+                loading="lazy"
+                width={1600}
+                height={1008}
+              />
             </div>
           </div>
         </div>
