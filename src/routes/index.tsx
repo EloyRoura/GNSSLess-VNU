@@ -141,7 +141,7 @@ function Index() {
       </header>
 
       {/* Hero */}
-      <section id="top" className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink pt-16 text-ink-foreground">
+      <section id="top" className="relative flex min-h-[92vh] flex-col justify-end overflow-hidden bg-ink pt-16 text-ink-foreground">
         <img src={heroImg.url} alt="UAV flying over the desert at altitude" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 pt-24">
