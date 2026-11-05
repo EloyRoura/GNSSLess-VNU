@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import {
   LifeBuoy,
   Crosshair,
@@ -22,6 +22,7 @@ import dunesImg from "@/assets/dunes_flight.jpg.asset.json";
 import tiiLogo from "@/assets/tii_logo.png.asset.json";
 import unitImg from "@/assets/visual_nav_unit.png.asset.json";
 import appImg from "@/assets/mission_app.png.asset.json";
+import { productSpecifications as specs } from "@/lib/product-specifications";
 
 const CONTACT_EMAIL = "eloy.roura@tii.ae";
 
@@ -40,6 +41,8 @@ export const Route = createFileRoute("/")({
         content:
           "Visual-based navigation unit for long-range UAVs flying without satellite positioning, day and night.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -98,17 +101,6 @@ const performance = [
   },
 ];
 
-function Clock() {
-  const [t, setT] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setT((v) => v + 0.1), 100);
-    return () => clearInterval(id);
-  }, []);
-  const m = String(Math.floor(t / 60)).padStart(2, "0");
-  const s = (t % 60).toFixed(1).padStart(4, "0");
-  return <span>T+ {m}:{s}</span>;
-}
-
 function SectionHead({ eyebrow, title, children }: { eyebrow: string; title: ReactNode; children?: ReactNode }) {
   return (
     <div className="grid gap-8 md:grid-cols-2 md:items-end">
@@ -149,16 +141,10 @@ function Index() {
       </header>
 
       {/* Hero */}
-      <section id="top" className="relative flex min-h-[92vh] items-center overflow-hidden bg-ink pt-16 text-ink-foreground">
+      <section id="top" className="relative flex min-h-[92vh] flex-col justify-end overflow-hidden bg-ink pt-16 text-ink-foreground">
         <img src={heroImg.url} alt="UAV flying over the desert at altitude" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
-        <div className="absolute right-6 top-24 hidden text-right font-mono text-xs md:block">
-          <div className="inline-flex items-center gap-2 rounded border border-signal/50 bg-ink/60 px-3 py-1.5 tracking-widest text-signal">
-            <span className="h-2 w-2 rounded-full bg-signal animate-blink" /> GNSS DENIED · VISUAL LOCK
-          </div>
-          <div className="mt-2 text-ink-muted"><Clock /></div>
-        </div>
-        <div className="relative mx-auto w-full max-w-6xl px-6 py-24">
+        <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 pt-24">
           <p className="eyebrow text-ink-muted">Visual-based navigation for UAVs</p>
           <h1 className="mt-6 max-w-3xl text-5xl font-extrabold leading-[0.95] md:text-7xl">
             GNSS<span className="text-sand">Less</span>
@@ -180,17 +166,17 @@ function Index() {
             </a>
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 border-t border-ink-foreground/10 bg-ink/70 backdrop-blur">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-6 py-5 font-mono md:grid-cols-4">
+        <div className="relative w-full border-t border-ink-foreground/10 bg-ink/70 backdrop-blur">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-6 px-6 py-6 md:grid-cols-4">
             {[
-              ["50 m", "position error at 1000 m AGL"],
-              ["1.7 kg", "210 × 155 × 125 mm unit"],
-              ["Day & night", "resilient in clouds and fog"],
-              ["EO/IR", "integrated across your fleet"],
+              [`${specs.minimumAltitudeAglM}–${specs.maximumAltitudeAglM.toLocaleString("en-US")} m AGL`, `${specs.terrain.join(" · ")} · ${specs.dayAndNight ? "day & night" : "daytime"}`],
+              ["Navigate without GNSS", "50 m horizontal position error at 1,000 m AGL"],
+              ["Easy deployment", "AI-enhanced navigation"],
+              ["Map-ready navigation", "Only an up-to-date georeferenced map required"],
             ].map(([v, l]) => (
               <div key={v}>
-                <div className="text-base font-medium">{v}</div>
-                <div className="text-xs text-ink-muted">{l}</div>
+                <div className="text-base font-semibold">{v}</div>
+                <div className="mt-1 text-sm leading-relaxed text-ink-muted">{l}</div>
               </div>
             ))}
           </div>
@@ -217,16 +203,22 @@ function Index() {
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
               A compact, rugged box that fits your platform and runs navigation fully on board.
             </p>
-            <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border bg-border">
+            <p className="eyebrow mt-8 text-primary">SWaP & interfaces</p>
+            <dl className="mt-4 divide-y overflow-hidden rounded-lg border">
               {[
-                ["210", "mm long"],
-                ["155", "mm wide"],
-                ["125", "mm high"],
-                ["1.7", "kg"],
-              ].map(([v, l]) => (
-                <div key={l} className="bg-card p-5">
-                  <dt className="font-display text-3xl font-extrabold text-primary">{v}</dt>
-                  <dd className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{l}</dd>
+                ["Size", `${specs.dimensionsMm.join(" × ")} mm`],
+                ["Weight", `${specs.weightKg} kg`],
+                ["Power", `${specs.powerW} W`],
+                ["Interfaces", `Designed for ${specs.interface}`],
+              ].map(([label, value]) => (
+                <div key={label} className="grid grid-cols-[5rem_minmax(0,1fr)] gap-4 bg-card px-5 py-4">
+                  <dt className="text-sm text-muted-foreground">{label}</dt>
+                  <dd className="font-semibold text-primary">
+                    {value}
+                    {label === "Interfaces" && specs.customizableCommunications && (
+                      <span className="mt-1 block text-xs font-normal leading-relaxed text-muted-foreground">Customizable for any communications protocol.</span>
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>

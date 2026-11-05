@@ -1,0 +1,3 @@
+- [x] Update header highlights and remove simulated status/timer.
+- [x] Expand overview to SWaP and interfaces; verify page and specifications.
+- [ ] Replace header image with supplied video. Blocked: video not supplied; user needs a smaller clip or download link.
