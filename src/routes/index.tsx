@@ -169,10 +169,10 @@ function Index() {
         <div className="relative w-full border-t border-ink-foreground/10 bg-ink/70 backdrop-blur">
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-6 px-6 py-6 md:grid-cols-4">
             {[
-              [`${specs.minimumAltitudeAglM}–${specs.maximumAltitudeAglM.toLocaleString("en-US")} m AGL`, specs.terrain.join(" · ")],
-              ["Day & night", "50 m horizontal position error at 1,000 m AGL"],
-              ["Non-visual enabled", "Reliable dead reckoning under clouds and fog or over sea"],
-              ["Easy deployment", "Only an up-to-date georeferenced map required"],
+              [`${specs.minimumAltitudeAglM}–${specs.maximumAltitudeAglM.toLocaleString("en-US")} m AGL`, "desert · mountains · urban"],
+              ["Day & night", "50 m position error"],
+              ["Non-visual enabled", "Resilient in clouds and fog"],
+              ["Easy deployment", "Up-to-date georeferenced map"],
             ].map(([v, l]) => (
               <div key={v}>
                 <div className="text-base font-semibold">{v}</div>
