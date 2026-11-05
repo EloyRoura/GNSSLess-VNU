@@ -7,7 +7,7 @@ import {
   ScanSearch,
   Map,
   ShieldCheck,
-  Cpu,
+  Layers,
   Mountain,
   Target,
   Camera,
@@ -65,7 +65,7 @@ const missions = [
 const platform = [
   { icon: Map, label: "Mission Planning & Monitoring" },
   { icon: ShieldCheck, label: "Secured Deployment" },
-  { icon: Cpu, label: "AI Enhanced" },
+  { icon: Layers, label: "Map Preparation" },
 ];
 
 const performance = [
