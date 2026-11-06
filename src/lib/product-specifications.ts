@@ -34,10 +34,9 @@ export const specSheet = [
     rows: [
       ["Operation within GNSS-denied area", "No limit"],
       ["Position average error", "Within 5% of altitude AGL"],
-      ["Drift under dead reckoning", "5 m/s*"],
+      ["Drift under dead reckoning", "5 m/s"],
       ["Velocity average error", "5 m/s"],
     ],
-    footnotes: ["* Subject to wind speed without GNSS initialization."],
   },
   {
     group: "Environment",
@@ -47,7 +46,6 @@ export const specSheet = [
       ["Geographic operation", "Worldwide"],
       ["Operational conditions", "24h operations · adverse weather"],
     ],
-    footnotes: [],
   },
   {
     group: "Platform",
@@ -57,6 +55,5 @@ export const specSheet = [
       ["Velocity", "Tested up to 50 m/s"],
       ["SWaP", swapLine],
     ],
-    footnotes: [],
   },
 ] as const;

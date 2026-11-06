@@ -14,11 +14,9 @@ describe("GNSSLess spec sheet", () => {
   it("states position average error as within 5% of altitude AGL", () => {
     expect(row("Performance", "Position average error")).toBe("Within 5% of altitude AGL");
   });
-  it("states drift as 5 m/s with a wind-speed footnote", () => {
-    expect(row("Performance", "Drift under dead reckoning")).toBe("5 m/s*");
-    expect(group("Performance").footnotes).toContain(
-      "* Subject to wind speed without GNSS initialization.",
-    );
+  it("states drift as a plain 5 m/s with no footnote anywhere on the sheet", () => {
+    expect(row("Performance", "Drift under dead reckoning")).toBe("5 m/s");
+    expect(JSON.stringify(specSheet)).not.toContain("Subject to wind speed");
   });
   it("states altitude as tested up to 3000 m AGL", () => {
     expect(row("Environment", "Altitude")).toBe("Tested up to 3000 m AGL");
