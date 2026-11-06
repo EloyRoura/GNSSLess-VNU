@@ -266,7 +266,7 @@ function Index() {
           <p className="eyebrow text-primary">Specifications</p>
           <h3 className="mt-4 text-3xl font-extrabold">Current specification sheet</h3>
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
-            {specSheet.map(({ group, rows }) => (
+            {specSheet.map(({ group, rows, footnotes }) => (
               <div key={group} className="overflow-hidden rounded-lg border">
                 <div className="bg-primary px-5 py-3 font-display font-semibold text-primary-foreground">{group}</div>
                 <dl className="divide-y">
@@ -277,6 +277,13 @@ function Index() {
                     </div>
                   ))}
                 </dl>
+                {footnotes.length > 0 && (
+                  <div className="bg-muted px-5 py-3 text-xs leading-relaxed text-muted-foreground">
+                    {footnotes.map((note) => (
+                      <p key={note}>{note}</p>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>

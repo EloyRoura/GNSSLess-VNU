@@ -10,6 +10,9 @@ export const productSpecifications = {
   dayAndNight: true,
 } as const;
 
+/** SWaP line shown on the spec sheet, built from the shared constants above. */
+export const swapLine = `${productSpecifications.dimensionsMm.join(" × ")} mm · ${productSpecifications.powerW} W · ${productSpecifications.weightKg} kg`;
+
 /** Field deployment record (flight-test campaign Jan 2025 – Feb 2026 + programme totals). */
 export const fieldRecord = {
   flights: 42,
@@ -30,20 +33,22 @@ export const specSheet = [
     group: "Performance",
     rows: [
       ["Operation within GNSS-denied area", "No limit"],
-      ["Position average error", "50 m + 5% of altitude AGL"],
-      ["Drift under dead reckoning", "5 m/s (after GNSS initialization; subject to wind speed without it)"],
+      ["Position average error", "Within 5% of altitude AGL"],
+      ["Drift under dead reckoning", "5 m/s*"],
       ["Velocity average error", "5 m/s"],
       ["Altitude average error", "10 m"],
     ],
+    footnotes: ["* Subject to wind speed without GNSS initialization."],
   },
   {
     group: "Environment",
     rows: [
-      ["Altitude", "Tested between 550 m and 3,000 m AGL"],
-      ["Terrain", "Mixed featureful and featureless, over desert areas"],
+      ["Altitude", "Tested up to 3000 m AGL"],
+      ["Terrain", "Engineered for featureless areas"],
       ["Geographic operation", "Worldwide"],
-      ["Operational conditions", "24-hour navigation · adverse weather · over open water"],
+      ["Operational conditions", "24h operations · adverse weather"],
     ],
+    footnotes: [],
   },
   {
     group: "Platform",
@@ -52,9 +57,8 @@ export const specSheet = [
       ["Flight dynamics", "Max roll rate 30° · roll angle 40°"],
       ["Velocity", "Tested up to 50 m/s"],
       ["Flight controller", "PX4 and ArduPilot via MAVLink"],
-      ["Payload dimensions", "210 × 155 × 125 mm"],
-      ["Power consumption", "100 W"],
-      ["Navigation payload", "1.7 kg (computer, RGB camera, IMU)"],
+      ["SWaP", swapLine],
     ],
+    footnotes: [],
   },
 ] as const;
