@@ -38,6 +38,13 @@ describe("GNSSLess spec sheet", () => {
     expect(group("Platform").rows.map(([k]) => k)).not.toContain("Power consumption");
     expect(group("Platform").rows.map(([k]) => k)).not.toContain("Navigation payload");
   });
+  it("keeps every card to four rows by dropping altitude error and flight controller", () => {
+    expect(group("Performance").rows.map(([k]) => k)).not.toContain("Altitude average error");
+    expect(group("Platform").rows.map(([k]) => k)).not.toContain("Flight controller");
+    for (const g of specSheet) {
+      expect(g.rows).toHaveLength(4);
+    }
+  });
 });
 
 describe("GNSSLess field record", () => {
