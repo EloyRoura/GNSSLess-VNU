@@ -247,7 +247,7 @@ function Index() {
             [`${field.flights}`, "flights flown", "Jan 2025 – Feb 2026"],
             [`${field.flightHours} h`, "logged flight time", `${field.flightDays} flight days, all 12 months`],
             [`${field.platformsFlown}`, "platforms flown", `${field.testBed} as TII test bed`],
-            [`${field.locations}`, "test locations", "desert, dunes and over water"],
+            [`${field.locations}`, "test locations", "featureful and featureless terrain"],
             [`${field.ongoingIntegrations}`, "ongoing integrations", "with partner platforms"],
             [`${field.typicalPositionErrorM} m`, "typical position error", `at ${field.typicalPositionAltitudeM} m AGL · ${field.typicalVelocityErrorMs} m/s velocity error`],
           ].map(([v, l, d]) => (
