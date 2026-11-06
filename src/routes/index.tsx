@@ -8,21 +8,13 @@ import {
   Map,
   ShieldCheck,
   Layers,
-  Mountain,
-  Target,
-  Camera,
-  Plane,
-  Box,
-  Compass,
-  Mail,
   ArrowRight,
 } from "lucide-react";
 import heroImg from "@/assets/desert_flight.jpg.asset.json";
-import dunesImg from "@/assets/dunes_flight.jpg.asset.json";
 import tiiLogo from "@/assets/tii_logo.png.asset.json";
 import unitImg from "@/assets/visual_nav_unit.png.asset.json";
 import gcsImg from "@/assets/gcs_station.jpg";
-import { productSpecifications as specs } from "@/lib/product-specifications";
+import { productSpecifications as specs, fieldRecord as field, specSheet } from "@/lib/product-specifications";
 
 const CONTACT_EMAIL = "eloy.roura@tii.ae";
 
@@ -66,39 +58,6 @@ const platform = [
   { icon: Map, label: "Mission Planning & Monitoring" },
   { icon: ShieldCheck, label: "Secured Deployment" },
   { icon: Layers, label: "Map Preparation" },
-];
-
-const performance = [
-  {
-    icon: Mountain,
-    title: "Terrain suitability",
-    body: "Deployed in flat plain desert, dunes, mountains…",
-  },
-  {
-    icon: Target,
-    title: "Velocity & position accuracy",
-    body: "Low average errors over heterogeneous terrains (50 m position error at 1000 m AGL).",
-  },
-  {
-    icon: Camera,
-    title: "Payload availability",
-    body: "EO/IR sensors seamlessly integrated across your fleet.",
-  },
-  {
-    icon: Plane,
-    title: "Flight envelope",
-    body: "Up to platform limitations & onboard maps available.",
-  },
-  {
-    icon: Box,
-    title: "Size & weight",
-    body: "Small and light to fit your platform (210 × 155 × 125 mm | 1.7 kg).",
-  },
-  {
-    icon: Compass,
-    title: "Navigation capabilities",
-    body: "Resilient in clouds and fog, both day and night.",
-  },
 ];
 
 function SectionHead({ eyebrow, title, children }: { eyebrow: string; title: ReactNode; children?: ReactNode }) {
@@ -277,27 +236,51 @@ function Index() {
         </div>
       </section>
 
-      {/* Performance */}
+      {/* Field record & specs */}
       <section id="performance" className="mx-auto max-w-6xl px-6 py-28">
-        <SectionHead eyebrow="System performance" title="Built for the long haul">
-          Proven over heterogeneous terrain, from flat plain desert to dunes and mountains.
+        <SectionHead eyebrow="Proven in the field" title="Flown, not just simulated">
+          A continuous flight-test campaign on TII's {field.testBed} fixed-wing test bed, plus integrations
+          across partner platforms.
         </SectionHead>
-        <div className="mt-16 grid gap-px overflow-hidden rounded-xl border bg-border md:grid-cols-2 lg:grid-cols-3">
-          {performance.map(({ icon: I, title, body }) => (
-            <div key={title} className="bg-card p-8 transition-colors hover:bg-primary-soft">
-              <div className="flex h-12 w-12 items-center justify-center rounded-md border-2 border-primary text-primary">
-                <I className="h-6 w-6" />
-              </div>
-              <h3 className="mt-6 text-lg font-extrabold uppercase tracking-tight text-primary">{title}</h3>
-              <p className="mt-2 leading-relaxed text-muted-foreground">{body}</p>
+        <div className="mt-16 grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            [`${field.flights}`, "flights flown", "Jan 2025 – Feb 2026"],
+            [`${field.flightHours} h`, "logged flight time", `${field.flightDays} flight days, all 12 months`],
+            [`${field.platformsFlown}`, "platforms flown", `${field.testBed} as TII test bed`],
+            [`${field.locations}`, "test locations", "desert, dunes and over water"],
+            [`${field.ongoingIntegrations}`, "ongoing integrations", "with partner platforms"],
+            [`${field.typicalPositionErrorM} m`, "typical position error", `at ${field.typicalPositionAltitudeM} m AGL · ${field.typicalVelocityErrorMs} m/s velocity error`],
+          ].map(([v, l, d]) => (
+            <div key={l} className="bg-card p-8">
+              <div className="font-display text-5xl font-extrabold text-primary">{v}</div>
+              <div className="mt-2 font-semibold uppercase tracking-tight">{l}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{d}</div>
             </div>
           ))}
         </div>
-      </section>
+        <p className="mt-6 inline-block rounded-md bg-primary-soft px-4 py-2 text-sm text-primary">
+          Next: helicopter and multicopter flight dynamics in development.
+        </p>
 
-      {/* Dunes band */}
-      <section className="relative h-[50vh] overflow-hidden">
-        <img src={dunesImg.url} alt="UAV over desert dunes" className="absolute inset-0 h-full w-full scale-110 object-cover object-bottom animate-drift" />
+        <div className="mt-24">
+          <p className="eyebrow text-primary">Specifications</p>
+          <h3 className="mt-4 text-3xl font-extrabold">Current specification sheet</h3>
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            {specSheet.map(({ group, rows }) => (
+              <div key={group} className="overflow-hidden rounded-lg border">
+                <div className="bg-primary px-5 py-3 font-display font-semibold text-primary-foreground">{group}</div>
+                <dl className="divide-y">
+                  {rows.map(([k, v]) => (
+                    <div key={k} className="bg-card px-5 py-3">
+                      <dt className="text-xs uppercase tracking-wide text-muted-foreground">{k}</dt>
+                      <dd className="mt-1 font-semibold">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <Contact />
@@ -332,9 +315,6 @@ function Contact() {
             integration. Tell us about your vehicle and mission and we'll get back to you.
           </p>
           <p className="mt-8 font-semibold">Technology Innovation Institute, Abu Dhabi</p>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="mt-3 inline-flex items-center gap-2 text-sand hover:underline">
-            <Mail className="h-4 w-4" /> {CONTACT_EMAIL}
-          </a>
         </div>
         <form onSubmit={submit} className="space-y-4">
           <input required placeholder="Your name" className={field} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
