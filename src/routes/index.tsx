@@ -245,11 +245,11 @@ function Index() {
         <div className="mt-16 grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {[
             [`${field.flights}`, "flights flown", "Jan 2025 – Feb 2026"],
-            [`${field.flightHours} h`, "logged flight time", `${field.flightDays} flight days, all 12 months`],
+            [`${field.flightHours} h`, "logged flight time", "all seasons tested"],
             [`${field.platformsFlown}`, "platforms flown", `${field.testBed} as TII test bed`],
             [`${field.locations}`, "test locations", "featureful and featureless terrain"],
             [`${field.ongoingIntegrations}`, "ongoing integrations", "with partner platforms"],
-            [`${field.typicalPositionErrorM} m`, "typical position error", `at ${field.typicalPositionAltitudeM} m AGL · ${field.typicalVelocityErrorMs} m/s velocity error`],
+            [`${field.typicalPositionErrorM} m`, "typical position error", `between ${field.typicalPositionAltitudeRangeM[0]} m and ${field.typicalPositionAltitudeRangeM[1]} m AGL`],
           ].map(([v, l, d]) => (
             <div key={l} className="bg-card p-8">
               <div className="font-display text-5xl font-extrabold text-primary">{v}</div>

@@ -16,15 +16,13 @@ export const swapLine = `${productSpecifications.dimensionsMm.join(" × ")} mm �
 /** Field deployment record (flight-test campaign Jan 2025 – Feb 2026 + programme totals). */
 export const fieldRecord = {
   flights: 42,
-  flightHours: 28.5,
-  flightDays: 23,
+  flightHours: 30,
   platformsFlown: 6,
   locations: 5,
   ongoingIntegrations: 3,
   testBed: "AYK-250",
-  typicalPositionErrorM: 21,
-  typicalPositionAltitudeM: 550,
-  typicalVelocityErrorMs: 0.62,
+  typicalPositionErrorM: 50,
+  typicalPositionAltitudeRangeM: [500, 1000],
 } as const;
 
 /** Common specification sheet. */
