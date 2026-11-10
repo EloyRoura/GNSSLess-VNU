@@ -292,21 +292,10 @@ function Index() {
               title="GNSSLess VNU recorded flight replay"
               src="/gnssless_vnu_embedded_replay.html"
               loading="lazy"
-              className="block h-[900px] w-full border-0 md:h-[1050px] xl:h-[950px]"
+              className="block h-[640px] w-full border-0 md:h-[590px] xl:h-[565px]"
               allowFullScreen
             />
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Recorded flight data · 300× replay · satellite imagery requires an internet connection.
-            <a
-              href="/gnssless_vnu_embedded_replay.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 font-semibold text-primary underline underline-offset-4"
-            >
-              Open full-screen replay
-            </a>
-          </p>
         </div>
 
         <div className="mt-24">
