@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep numerical product specifications in a shared browser-safe module used by the page and specification tests, so displayed values and verified requirements remain consistent.
+- Contact enquiries are validated with a shared zod schema and saved by a server function into an insert-only database table (no public read access), so leads are kept without exposing them.
