@@ -102,7 +102,21 @@ function Index() {
 
       {/* Hero */}
       <section id="top" className="relative flex min-h-[92vh] flex-col justify-end overflow-hidden bg-ink pt-16 text-ink-foreground">
+        {/* Keep the existing image as a fallback while the optimized video loads. */}
         <img src={heroImg.url} alt="UAV flying over the desert at altitude" className="absolute inset-0 h-full w-full object-cover" />
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroImg.url}
+          aria-hidden="true"
+          onError={(event) => { event.currentTarget.style.display = "none"; }}
+        >
+          <source src="/videos/perceptra_hero_22-58.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 pt-24">
           <p className="eyebrow text-ink-muted">Visual-based navigation for UAVs</p>
