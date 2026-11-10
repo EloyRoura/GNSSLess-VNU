@@ -52,6 +52,14 @@ describe("GNSSLess field record", () => {
     expect(fieldRecord.locations).toBe(5);
     expect(fieldRecord.ongoingIntegrations).toBe(3);
   });
+  it("rounds logged flight time to 30 h", () => {
+    expect(fieldRecord.flightHours).toBe(30);
+  });
+  it("states a conservative 50 m position error between 500 and 1000 m AGL", () => {
+    expect(fieldRecord.typicalPositionErrorM).toBe(50);
+    expect(fieldRecord.typicalPositionAltitudeRangeM).toEqual([500, 1000]);
+    expect(fieldRecord).not.toHaveProperty("typicalVelocityErrorMs");
+  });
 });
 
 describe("GNSSLess product specifications", () => {
