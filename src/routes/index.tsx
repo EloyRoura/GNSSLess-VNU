@@ -15,8 +15,9 @@ import tiiLogo from "@/assets/tii_logo.png.asset.json";
 import unitImg from "@/assets/visual_nav_unit.png.asset.json";
 import gcsImg from "@/assets/gcs_station.jpg";
 import { productSpecifications as specs, fieldRecord as field, specSheet } from "@/lib/product-specifications";
-
-const CONTACT_EMAIL = "eloy.roura@tii.ae";
+import { useServerFn } from "@tanstack/react-start";
+import { submitContact } from "@/lib/contact.functions";
+import { contactSchema } from "@/lib/contact-schema";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -296,12 +297,29 @@ function Index() {
 }
 
 function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
-  const submit = (e: FormEvent) => {
+  const empty = { name: "", email: "", company: "", message: "" };
+  const [form, setForm] = useState(empty);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [error, setError] = useState("");
+  const send = useServerFn(submitContact);
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    const subject = `GNSSLess Navigation enquiry from ${form.name}${form.company ? ` (${form.company})` : ""}`;
-    const body = `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\n\n${form.message}`;
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const parsed = contactSchema.safeParse(form);
+    if (!parsed.success) {
+      setStatus("error");
+      setError(parsed.error.issues[0]?.message ?? "Please check the form.");
+      return;
+    }
+    setStatus("sending");
+    setError("");
+    try {
+      await send({ data: parsed.data });
+      setStatus("sent");
+      setForm(empty);
+    } catch {
+      setStatus("error");
+      setError("Something went wrong. Please try again in a moment.");
+    }
   };
   const field = "w-full rounded-md border border-ink-foreground/20 bg-ink-foreground/5 px-4 py-3 text-ink-foreground placeholder:text-ink-muted focus:border-sand focus:outline-none";
   return (
@@ -321,10 +339,17 @@ function Contact() {
           <input required type="email" placeholder="Email" className={field} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
           <input placeholder="Company" className={field} value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
           <textarea rows={5} placeholder="Platform and mission" className={field} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-          <button type="submit" className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90">
-            Send enquiry <ArrowRight className="h-4 w-4" />
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-60"
+          >
+            {status === "sending" ? "Sending…" : "Send enquiry"} <ArrowRight className="h-4 w-4" />
           </button>
-          <p className="text-xs text-ink-muted">Opens your email app with the message ready to send.</p>
+          <p role="status" className="text-sm text-ink-muted">
+            {status === "sent" && <span className="text-sand">Thank you, your enquiry has been received. We'll get back to you soon.</span>}
+            {status === "error" && <span className="text-destructive">{error}</span>}
+          </p>
         </form>
       </div>
     </section>
