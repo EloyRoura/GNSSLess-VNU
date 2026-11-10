@@ -45,6 +45,7 @@ const nav = [
   ["Overview", "#overview"],
   ["Missions", "#missions"],
   ["Performance", "#performance"],
+  ["Flight replay", "#flight-replay"],
   ["Contact", "#contact"],
 ] as const;
 
@@ -102,7 +103,21 @@ function Index() {
 
       {/* Hero */}
       <section id="top" className="relative flex min-h-[92vh] flex-col justify-end overflow-hidden bg-ink pt-16 text-ink-foreground">
+        {/* Keep the existing image as a fallback while the optimized video loads. */}
         <img src={heroImg.url} alt="UAV flying over the desert at altitude" className="absolute inset-0 h-full w-full object-cover" />
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroImg.url}
+          aria-hidden="true"
+          onError={(event) => { event.currentTarget.style.display = "none"; }}
+        >
+          <source src="/videos/perceptra_hero_22-58.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-16 pt-24">
           <p className="eyebrow text-ink-muted">Visual-based navigation for UAVs</p>
@@ -262,6 +277,26 @@ function Index() {
         <p className="mt-6 inline-block rounded-md bg-primary-soft px-4 py-2 text-sm text-primary">
           Next: helicopter and multicopter flight dynamics in development.
         </p>
+
+        {/* Recorded flight replay, loaded only when the section enters view. */}
+        <div id="flight-replay" className="mt-24 scroll-mt-24">
+          <p className="eyebrow text-primary">Recorded flight demonstration</p>
+          <h3 className="mt-4 text-3xl font-extrabold">Visual navigation in flight</h3>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
+            Explore a recorded GNSSLess VNU flight: compare the reference trajectory with the
+            estimated navigation solution, replay mode transitions, and inspect position
+            divergence and altitude throughout the mission.
+          </p>
+          <div className="mt-8 overflow-hidden rounded-xl border border-border bg-[#090f1b]">
+            <iframe
+              title="GNSSLess VNU recorded flight replay"
+              src="/gnssless_vnu_embedded_replay.html"
+              loading="lazy"
+              className="block h-[640px] w-full border-0 md:h-[590px] xl:h-[565px]"
+              allowFullScreen
+            />
+          </div>
+        </div>
 
         <div className="mt-24">
           <p className="eyebrow text-primary">Specifications</p>
