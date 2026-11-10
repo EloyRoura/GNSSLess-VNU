@@ -45,6 +45,7 @@ const nav = [
   ["Overview", "#overview"],
   ["Missions", "#missions"],
   ["Performance", "#performance"],
+  ["Flight replay", "#flight-replay"],
   ["Contact", "#contact"],
 ] as const;
 
@@ -276,6 +277,37 @@ function Index() {
         <p className="mt-6 inline-block rounded-md bg-primary-soft px-4 py-2 text-sm text-primary">
           Next: helicopter and multicopter flight dynamics in development.
         </p>
+
+        {/* Recorded flight replay, loaded only when the section enters view. */}
+        <div id="flight-replay" className="mt-24 scroll-mt-24">
+          <p className="eyebrow text-primary">Recorded flight demonstration</p>
+          <h3 className="mt-4 text-3xl font-extrabold">Visual navigation in flight</h3>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted-foreground">
+            Explore a recorded GNSSLess VNU flight: compare the reference trajectory with the
+            estimated navigation solution, replay mode transitions, and inspect position
+            divergence and altitude throughout the mission.
+          </p>
+          <div className="mt-8 overflow-hidden rounded-xl border border-border bg-[#090f1b]">
+            <iframe
+              title="GNSSLess VNU recorded flight replay"
+              src="/gnssless_vnu_embedded_replay.html"
+              loading="lazy"
+              className="block h-[900px] w-full border-0 md:h-[1050px] xl:h-[950px]"
+              allowFullScreen
+            />
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Recorded flight data · 300× replay · satellite imagery requires an internet connection.
+            <a
+              href="/gnssless_vnu_embedded_replay.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 font-semibold text-primary underline underline-offset-4"
+            >
+              Open full-screen replay
+            </a>
+          </p>
+        </div>
 
         <div className="mt-24">
           <p className="eyebrow text-primary">Specifications</p>
